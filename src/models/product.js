@@ -18,7 +18,9 @@ const productSchema = new Schema({
   description: {
     type: String,
   },
-  timestamps: true,
-});
+  },
+  {
+  timestamps: true
+  },);
 
 export const Product = model('Product', productSchema);
