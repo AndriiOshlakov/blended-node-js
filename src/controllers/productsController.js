@@ -21,3 +21,18 @@ export const createProduct = async (req, res) => {
   const product = await Product.create(req.body);
   res.status(201).json(product);
 };
+
+
+export const deleteProduct = async (req, res, next) => {
+  const { productId } = req.params;
+  const product = await Product.findOneAndDelete({
+    _id: productId,
+  });
+
+  if (!product) {
+    next(createHttpError(404, "Product not found"));
+    return;
+  }
+
+  res.status(200).send(product);
+};
