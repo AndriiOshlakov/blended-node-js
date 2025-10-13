@@ -22,6 +22,17 @@ export const createProduct = async (req, res) => {
   res.status(201).json(product);
 };
 
+export const updateProduct = async (req, res, next) => {
+  const { productId } = req.params;
+  const product = await Product.findOneAndUpdate({ _id: productId }, req.body, { new: true });
+
+  if (!product) {
+    next(createHttpError(404, 'Product not found'));
+    return;
+  };
+
+  res.status(200).json(product);
+}
 
 export const deleteProduct = async (req, res, next) => {
   const { productId } = req.params;
