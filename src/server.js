@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { logger } from './middleware/logger.js';
 import productsRouters from './routes/productsRoutes.js';
+import authRouters from './routes/authRoutes.js';
 const app = express();
 const PORT = process.env.PORT ?? 3030;
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(logger);
 
 app.use(productsRouters);
+app.use(authRouters);
 app.use(notFoundHandler);
 app.use(errorHandler);
 

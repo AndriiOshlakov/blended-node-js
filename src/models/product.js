@@ -4,6 +4,7 @@ const productSchema = new Schema({
   name: {
     type: String,
     required: true,
+    trim: true,
   },
   price: {
     type: Number,
@@ -14,9 +15,11 @@ const productSchema = new Schema({
     enum: ['books', 'electronics', 'clothing', 'other'],
     required: true,
     default: 'other',
+    trim: true,
   },
   description: {
     type: String,
+    trim: true,
   },
   },
   {
