@@ -39,10 +39,22 @@ export const loginUser = async (req, res) => {
     throw createHttpError(401, 'Invalid email or password');
   }
 
-  await Session.deleteOne({userId: user._id});
+  await Session.deleteOne({ userId: user._id });
 
   const newSession = await createSession(user._id);
   setSessionCookies(res, newSession);
 
   res.status(200).json(user);
+};
+
+export const authUserLogout = async (req, res) => {
+  const { sessionId } = req.cookies;
+  if (sessionId) {
+    await Session.deleteOne({ _id: sessionId });
+  }
+  res.clearCookie('sessionId');
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+
+  res.status(204).send();
 };
